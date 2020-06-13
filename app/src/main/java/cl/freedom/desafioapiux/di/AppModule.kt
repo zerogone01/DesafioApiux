@@ -1,7 +1,12 @@
 package cl.freedom.desafioapiux.di
 
+import android.app.Activity
 import android.app.Application
 import android.content.Context
+import android.hardware.Sensor
+import android.hardware.SensorManager
+import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import cl.freedom.desafioapiux.api.ApiClient
 import cl.freedom.desafioapiux.ui.cambio_moneda.CambioMoneda.Presenter
 import cl.freedom.desafioapiux.ui.cambio_moneda.CambioMonedaPresenter
@@ -60,8 +65,24 @@ class AppModule(private val application: Application) {
 
     @Provides
     @Singleton
-    fun providesPresenterCambioMoneda(apiClient: ApiClient): Presenter {
-        return CambioMonedaPresenter(apiClient)
+    fun provideSensorManager(context: Context) : SensorManager
+    {
+        val sensorService = Activity.SENSOR_SERVICE;
+        return context.getSystemService(sensorService) as SensorManager
+    }
+
+    @Provides
+    @Singleton
+    fun provideRotationSensor(sensorManager: SensorManager) : Sensor
+    {
+        return sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
+    }
+
+
+    @Provides
+    @Singleton
+    fun providesPresenterCambioMoneda(apiClient: ApiClient, sensorManager: SensorManager, rotationSensor: Sensor): Presenter {
+        return CambioMonedaPresenter(apiClient, sensorManager, rotationSensor)
     }
 
     companion object {

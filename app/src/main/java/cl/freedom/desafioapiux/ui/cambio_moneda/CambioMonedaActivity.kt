@@ -18,7 +18,7 @@ import cl.freedom.desafioapiux.di.BaseApp
 import cl.freedom.desafioapiux.ui.cambio_moneda.CambioMoneda.Presenter
 import javax.inject.Inject
 
-class CambioMonedaActivity : AppCompatActivity(), CambioMoneda.View, View.OnClickListener, SensorEventListener {
+class CambioMonedaActivity : AppCompatActivity(), CambioMoneda.View, View.OnClickListener {
     @JvmField
     @Inject
     var presenter: Presenter? = null
@@ -28,17 +28,17 @@ class CambioMonedaActivity : AppCompatActivity(), CambioMoneda.View, View.OnClic
     private lateinit var textViewValueGbp: TextView
     private lateinit var textViewValueMxn: TextView
     private lateinit var imageViewArrow: ImageView
-    private lateinit var sensorManager: SensorManager
-    private lateinit var rotationSensor: Sensor
-    private var isRight = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cambio_moneda)
         (application as BaseApp).appComponent.inject(this)
         setViews()
         presenter!!.setView(this)
-        configureSensorAndRotation()
+        presenter!!.addListenerSensor()
     }
+
+
 
     private fun setViews() {
         radioButtonEuro = findViewById(R.id.radioButtonEuro)
@@ -65,63 +65,18 @@ class CambioMonedaActivity : AppCompatActivity(), CambioMoneda.View, View.OnClic
         }
     }
 
+
+
     override fun actualizarMonedas(cad: String, gbp: String, mxn: String) {
         textViewValueCad.text = cad
         textViewValueGbp.text = gbp
         textViewValueMxn.text = mxn
     }
 
-    private fun configureSensorAndRotation() {
-        try {
-            sensorManager = getSystemService(Activity.SENSOR_SERVICE) as SensorManager
-            rotationSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
-            sensorManager.registerListener(this, rotationSensor, SENSOR_DELAY)
-        } catch (e: Exception) {
-            Toast.makeText(this, "Hardware compatibility issue", Toast.LENGTH_LONG).show()
-        }
+    override fun actualizarDireccionFlecha(isRight: Boolean) {
+        val resource : Int = if(isRight) R.drawable.arrow_right else R.drawable.arrow_left;
+        imageViewArrow.setImageResource(resource)
     }
 
-    override fun onSensorChanged(event: SensorEvent) {
-        if (event.sensor == rotationSensor) {
-            if (event.values.size > 4) {
-                val truncatedRotationVector = FloatArray(4)
-                System.arraycopy(event.values, 0, truncatedRotationVector, 0, 4)
-                update(truncatedRotationVector)
-            } else {
-                update(event.values)
-            }
-        }
-    }
 
-    private fun update(vectors: FloatArray) {
-        val rotationMatrix = FloatArray(9)
-        SensorManager.getRotationMatrixFromVector(rotationMatrix, vectors)
-        val worldAxisX = SensorManager.AXIS_X
-        val worldAxisZ = SensorManager.AXIS_Z
-        val adjustedRotationMatrix = FloatArray(9)
-        SensorManager.remapCoordinateSystem(rotationMatrix, worldAxisX, worldAxisZ, adjustedRotationMatrix)
-        val orientation = FloatArray(3)
-        SensorManager.getOrientation(adjustedRotationMatrix, orientation)
-        //val pitch = orientation[1] * FROM_RADS_TO_DEGS
-        val roll = orientation[2] * FROM_RADS_TO_DEGS
-        changeDirectionArrow(roll)
-        Log.d("TAG2", "" + roll)
-    }
-
-    fun changeDirectionArrow(value: Float) {
-        isRight = if (value <= 0) { //flecha hacia la derecha
-            if (!isRight) imageViewArrow.setImageResource(R.drawable.arrow_right)
-            true
-        } else { //flecha hacia la izquierda
-            if (isRight) imageViewArrow.setImageResource(R.drawable.arrow_left)
-            false
-        }
-    }
-
-    override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
-
-    companion object {
-        private const val SENSOR_DELAY = 500 * 1000 // 500ms
-        private const val FROM_RADS_TO_DEGS = -57
-    }
 }
