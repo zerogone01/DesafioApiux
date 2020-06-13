@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">DesafioApiux</string>
+    <string name="base_cambio">Base de Cambio</string>
+    <string name="euro">EUR</string>
+    <string name="usd">USD</string>
+    <string name="titulo_tipos_cambio">Tipos de cambio hoy</string>
+    <string name="name_canada">CAD:</string>
+    <string name="name_great_britain">GBP:</string>
+    <string name="name_mexico">MXN:</string>
+
+</resources>

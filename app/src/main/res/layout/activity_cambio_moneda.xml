@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.cambio_moneda.CambioMonedaActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ConstraintLayoutGroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/imageViewFlagMexico"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/mexico"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/textViewTiposCambio"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewFlagGreatBritain" />
+
+    <ImageView
+        android:id="@+id/imageViewFlagGreatBritain"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/great_britain"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/textViewTiposCambio"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewFlagCanada" />
+
+    <ImageView
+        android:id="@+id/imageViewFlagCanada"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/canada"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/textViewTiposCambio"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTiposCambio" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupBaseCambio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle">
+
+        <RadioButton
+            android:id="@+id/radioButtonEuro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/euro"
+            android:textSize="24sp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonUsd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/usd"
+            android:textSize="24sp" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textViewValueMexico"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewNameMexico"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textViewNameCanada"
+        app:layout_constraintTop_toTopOf="@+id/textViewNameMexico" />
+
+    <TextView
+        android:id="@+id/textViewNameMexico"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name_mexico"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewFlagMexico"
+        app:layout_constraintEnd_toStartOf="@+id/textViewValueCanada"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/imageViewFlagCanada"
+        app:layout_constraintTop_toTopOf="@+id/imageViewFlagMexico" />
+
+    <TextView
+        android:id="@+id/textViewNameGreatBritain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name_great_britain"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewFlagGreatBritain"
+        app:layout_constraintEnd_toStartOf="@+id/textViewValueCanada"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/imageViewFlagCanada"
+        app:layout_constraintTop_toTopOf="@+id/imageViewFlagGreatBritain" />
+
+    <TextView
+        android:id="@+id/textViewValueGreatBritain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewNameGreatBritain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textViewNameCanada"
+        app:layout_constraintTop_toTopOf="@+id/textViewNameGreatBritain" />
+
+    <TextView
+        android:id="@+id/textViewTiposCambio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/titulo_tipos_cambio"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/radioGroupBaseCambio"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupBaseCambio" />
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/base_cambio"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/radioGroupBaseCambio"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewNameCanada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name_canada"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewFlagCanada"
+        app:layout_constraintEnd_toStartOf="@+id/textViewValueCanada"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/imageViewFlagCanada"
+        app:layout_constraintTop_toTopOf="@+id/imageViewFlagCanada" />
+
+    <TextView
+        android:id="@+id/textViewValueCanada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewFlagCanada"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewNameCanada"
+        app:layout_constraintTop_toTopOf="@+id/imageViewFlagCanada" />
+
+        <ImageView
+            android:id="@+id/imageViewArrow"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/arrow_right"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewNameMexico" />
+
+        <View
+        android:id="@+id/divider2"
+        android:layout_width="0dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTiposCambio" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
